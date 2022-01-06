@@ -1,0 +1,51 @@
+version: '3.3'
+
+services:
+  redis0:
+    image: redis-tls-test:6.2.0
+    volumes:
+      - ./redis0.conf:/usr/local/etc/redis/redis.conf
+    network_mode: host
+    restart: always
+
+  redis1:
+    image: redis-tls-test:6.2.0
+    volumes:
+      - "./redis1.conf:/usr/local/etc/redis/redis.conf"
+    network_mode: host
+    restart: always
+  redis2:
+    image: redis-tls-test:6.2.0
+    volumes:
+      - "./redis2.conf:/usr/local/etc/redis/redis.conf"
+    network_mode: host
+    restart: always
+  redis3:
+    image: redis-tls-test:6.2.0
+    volumes:
+      - "./redis3.conf:/usr/local/etc/redis/redis.conf"
+    network_mode: host
+    restart: always
+  redis4:
+    image: redis-tls-test:6.2.0
+    volumes:
+      - "./redis4.conf:/usr/local/etc/redis/redis.conf"
+    network_mode: host
+    restart: always
+  redis5:
+    image: redis-tls-test:6.2.0
+    volumes:
+      - "./redis5.conf:/usr/local/etc/redis/redis.conf"
+    network_mode: host
+    restart: always
+
+  redis-cli:
+    image: redis-tls-test:6.2.0
+    command: redis-cli --cluster create redis0:7379 redis1:7380 redis2:7381 redis3:7382 redis4:7383 redis5:7384 --cluster-replicas 1 --tls -a redisTLSTest2021@@ --cert redis.crt --key redis.key --cacert ca.crt
+    depends_on:
+      - redis0
+      - redis1
+      - redis2
+      - redis3
+      - redis4
+      - redis5
